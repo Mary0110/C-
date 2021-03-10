@@ -112,9 +112,9 @@ namespace Calculator
                         i++;
                     } while (i != clExpr.Length && clExpr[i] != ' ');
 
-                    int number;
-                    bool b = Int32.TryParse(num, out number);
-                    if (b)
+                    double number;
+                    
+                    if (Double.TryParse(num, out number))
                     {
                         st.Push(number);
                     }
