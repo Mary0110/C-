@@ -40,32 +40,34 @@ namespace Calculator
             }
             return pr;
         }
-        public static string ToPolishNotation(string exp)
+        public static string ToPolishNotation(string expr)
         {
-            string cleanExp = string.Empty;
+            string cleanExpr = string.Empty;
             Stack<char> operators = new Stack<char>();
 
-            for (int i = 0; i < exp.Length; i++)
+            for (int i = 0; i < expr.Length; i++)
             {
-                if (!IsOperator(exp[i]))      //if number
+                //if number
+                if (!IsOperator(expr[i]))      
                 {
                    do
                    {
-                        cleanExp += exp[i];
+                        cleanExpr += expr[i];
                         
                         i++;
 
-                   }while (i != exp.Length &&!IsOperator(exp[i]));
-                   cleanExp += ' ';
-                    i--;
+                   }while (i != expr.Length && !IsOperator(expr[i]));
+                   cleanExpr += ' ';
+                   i--;
                 }
-                else if (IsOperator(exp[i]))        //if operator
+                //if operator
+                else if (IsOperator(expr[i]))        
                 {
-                    if (exp[i] == '(')
+                    if (expr[i] == '(')
                     {
-                        operators.Push(exp[i]);   
+                        operators.Push(expr[i]);   
                     }
-                    else if (exp[i] == ')')
+                    else if (expr[i] == ')')
                     {
                         char c = '0';
                         while(true)
@@ -73,73 +75,75 @@ namespace Calculator
                             c = operators.Pop();
                             if (c == '(')
                                 break;
-                            cleanExp += c.ToString();     
+                            cleanExpr += c.ToString();     
                         }
                     }
                     else
                     {
                         if (operators.Count != 0)     
-                        {
-                            if (Priority(exp[i]) <= Priority(operators.Peek()))  //check for higher priority operators in stack  
+                        {    
+                            //check for higher priority operators in stack
+                            if (Priority(expr[i]) <= Priority(operators.Peek()))    
                             {
-                                cleanExp += operators.Pop().ToString();          //remove operators from stack to string
+                                //remove operators from stack to string
+                                cleanExpr += operators.Pop().ToString();          
                             }
                         }
-                        operators.Push(exp[i]);
+                        operators.Push(expr[i]);
                     }
                 }
             }
-
-            while (operators.Count != 0)         //remove all operators from the stack to string
+            //remove all operators from the stack to string
+            while (operators.Count != 0)         
             {
-                cleanExp += operators.Pop();
+                cleanExpr += operators.Pop();
             }
-            return cleanExp;
+            return cleanExpr;
         }
-        public static double Calculate(string clExpr)
+        public static double Calculate(string cleanExpr)
         {
-            Stack<double> st = new Stack<double>(); 
+            Stack<double> numStack = new Stack<double>(); 
 
-            for (int i = 0; i < clExpr.Length; i++)
-            {
-                 if (!IsOperator(clExpr[i]))     //if a number
-                 {  
+            for (int i = 0; i < cleanExpr.Length; i++)
+            {   
+                //if a number
+                if (!IsOperator(cleanExpr[i]))     
+                {
                     string num = string.Empty;
 
                     do
                     {
-                        num += clExpr[i];
+                        num += cleanExpr[i];
                         i++;
-                    } while (i != clExpr.Length && clExpr[i] != ' ');
+                    } while (i != cleanExpr.Length && cleanExpr[i] != ' ');
 
                     double number;
-                    
+
                     if (Double.TryParse(num, out number))
                     {
-                        st.Push(number);
+                        numStack.Push(number);
                     }
-                 }
-
-                else if (IsOperator(clExpr[i]))                         //if operator
+                }
+                else if (IsOperator(cleanExpr[i]))                         
                 {
                     double num1 = double.NaN, num2 = double.NaN;
-                    if (st.Count != 0)
+                    if (numStack.Count != 0)
                     {
-                        num1 = st.Pop();
-                        num2 = st.Pop();
+                        num1 = numStack.Pop();
+                        num2 = numStack.Pop();
                     }
                     double result = double.NaN;
 
-                    switch (clExpr[i]) 
+                    switch (cleanExpr[i])
                     {
-                        case '+': 
+                        case '+':
                             result = num2 + num1;
                             break;
-                        case '-': 
+                        case '-':
                             result = num2 - num1;
                             break;
-                        case '*': 
-                            result = num2 * num1; 
+                        case '*':
+                            result = num2 * num1;
                             break;
                         case '/':
                             if (num1 != 0)
@@ -150,19 +154,19 @@ namespace Calculator
                         case '^':
                             if (num1 != 0 && num2 != 0)
                             {
-                                result = Math.Pow(num2, num1); 
+                                result = Math.Pow(num2, num1);
                             }
                             break;
                     }
-                    st.Push(result); 
+                    numStack.Push(result);
                 }
             }
-            return st.Peek();
+            return numStack.Peek();
         }
-        public static double Summarize(string str)
+        public static double Summarize(string expr)
         {
-            string clstr = ToPolishNotation(str);
-            double res = Calculate(clstr);
+            string cleanExpr = ToPolishNotation(expr);
+            double res = Calculate(cleanExpr);
             return res;
         }
     }
@@ -181,23 +185,31 @@ namespace Calculator
                 int br1 = 0, br2 = 0;
                 Console.Write("Type an expression, and then press Enter:");
                 expr = Console.ReadLine();
+
+                while (expr.Length == 0)
+                {
+                    Console.WriteLine("This is not valid input. Please enter something: ");
+                    expr = Console.ReadLine();
+                }
+
                 for (int i = 0; i < expr.Length; i++)
                 {
+                    Console.WriteLine("{0}",expr[i]);
+
                     if (!(expr[i] >= '(' && expr[i] <= '9' || expr[i] == '^'))
                     {
                         Console.Write("This is not valid input. Please enter numbers and operators: ");
                         expr = Console.ReadLine();
                         i = -1;
-
                     }
-                         //if ',' is used
+                    //if ',' is used
                     else if (expr[i] == ',')            
                     {
                         Console.Write("This is not valid input. Please use '.' instead of ',': ");
                         expr = Console.ReadLine();
                         i = -1;
                     }
-                         //if two adjusting operators 
+                    //if two adjusting operators 
                     else if (i > 0 && expr[i] < '0' && expr[i] > ')' && expr[i - 1] < '0' && expr[i - 1] > ')')
                     {
                         Console.Write("This is not valid input. Please do not miss numbers: ");
@@ -211,11 +223,12 @@ namespace Calculator
                         expr = Console.ReadLine();
                         i = -1;
                     }
-                    //if last el is operator
-                    else if (i == expr.Length - 1 && (expr[i] < '0'))
+                    //if last element is operator
+                    else if (i == expr.Length - 1 && expr[i] < '0' && !(expr[i] == ')'))
                     {
                         Console.Write("This is not valid input. Please do not finish with operators: ");
                         expr = Console.ReadLine();
+                        br1 = br2 = 0;
                         i = -1;
                     }
                     else if(expr[i] == '(')
@@ -230,6 +243,7 @@ namespace Calculator
                             Console.Write("This is not valid input. Please do not begin with ')': ");
                             expr = Console.ReadLine();
                             i = -1;
+                
                         }
                     }
                     else if(i == expr.Length - 1 && br1 != br2)
@@ -237,10 +251,10 @@ namespace Calculator
                         Console.Write("This is not valid input. Please close all brackets: ");
                         expr = Console.ReadLine();
                         i = -1;
+                        br1 = 0; br2 = 0;
+
                     }
                 }
-                
-              
                 double result = Calculator.Summarize(expr);
                 if (double.IsNaN(result))
                 {
