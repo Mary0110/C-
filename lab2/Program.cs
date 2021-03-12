@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace ConsoleApp1
 {
@@ -7,29 +8,30 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            string str;
+            StringBuilder str;
             Console.WriteLine("Enter string:");
-            str = Console.ReadLine();
-            reverseString(str);
+            str = new StringBuilder(Console.ReadLine());
+            ReverseString(str);
         }
-        static void reverseString(string s)
+        static void ReverseString(StringBuilder s)
         {
-            List<string> t = new List<string>();
-            string word = string.Empty;
+            List<StringBuilder> t = new List<StringBuilder>();
+            StringBuilder word = new StringBuilder("");
             for (int i = 0; i < s.Length; i++)
             {
                 if (s[i] == ' ')
                 {
                     t.Add(word);
-                    word = string.Empty;
+                    word = new StringBuilder("");
                 }
                 else
-                    word += s[i];
+                    word.Append(s[i]);
             }
 
             t.Add(word);
             t.Reverse();
-            
+            Console.WriteLine();
+
             for (int i = 0; i < t.Count; i++)
                 Console.Write($"{t[i]}  ");
         }
