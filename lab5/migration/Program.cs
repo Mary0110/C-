@@ -15,11 +15,12 @@ namespace lab_3
             StudentMigrant stud1 = new StudentMigrant("Petr", "Ivanov", 17, "secondary", 0, "low", "single", "CIS");
             stud1.Educate();
             stud1.Work();
+            stud1.Information();
             PermanentMigrant man = new PermanentMigrant("Kevin", "Smith", 46, "high", 23, "high", "single", "other");
             man.Work();
             man.GetCitizenship();
+            man.Information();
             List<Migrant> migrList = new List<Migrant>() {man, girl, stud1};
-            migrList.Sort();
         }
     }
 }
