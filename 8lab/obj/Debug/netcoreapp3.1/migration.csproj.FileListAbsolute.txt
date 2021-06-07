@@ -1,0 +1,13 @@
+C:\Users\Lenovo\Downloads\C_ISP-main\8lab\obj\Debug\netcoreapp3.1\migration.csproj.AssemblyReference.cache
+C:\Users\Lenovo\Downloads\C_ISP-main\8lab\obj\Debug\netcoreapp3.1\migration.AssemblyInfoInputs.cache
+C:\Users\Lenovo\Downloads\C_ISP-main\8lab\obj\Debug\netcoreapp3.1\migration.AssemblyInfo.cs
+C:\Users\Lenovo\Downloads\C_ISP-main\8lab\obj\Debug\netcoreapp3.1\migration.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Downloads\C_ISP-main\8lab\bin\Debug\netcoreapp3.1\migration.exe
+C:\Users\Lenovo\Downloads\C_ISP-main\8lab\bin\Debug\netcoreapp3.1\migration.deps.json
+C:\Users\Lenovo\Downloads\C_ISP-main\8lab\bin\Debug\netcoreapp3.1\migration.runtimeconfig.json
+C:\Users\Lenovo\Downloads\C_ISP-main\8lab\bin\Debug\netcoreapp3.1\migration.runtimeconfig.dev.json
+C:\Users\Lenovo\Downloads\C_ISP-main\8lab\bin\Debug\netcoreapp3.1\migration.dll
+C:\Users\Lenovo\Downloads\C_ISP-main\8lab\bin\Debug\netcoreapp3.1\migration.pdb
+C:\Users\Lenovo\Downloads\C_ISP-main\8lab\obj\Debug\netcoreapp3.1\migration.dll
+C:\Users\Lenovo\Downloads\C_ISP-main\8lab\obj\Debug\netcoreapp3.1\migration.pdb
+C:\Users\Lenovo\Downloads\C_ISP-main\8lab\obj\Debug\netcoreapp3.1\migration.genruntimeconfig.cache
